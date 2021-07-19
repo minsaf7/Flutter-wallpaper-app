@@ -14,7 +14,6 @@ Widget topBar() {
 
 Widget imageList({required List<WallpaperModel> wallpapers, context}) {
   return Container(
-    height: 400,
     padding: EdgeInsets.symmetric(horizontal: 10),
     child: GridView.count(
       physics: ClampingScrollPhysics(),
@@ -27,7 +26,7 @@ Widget imageList({required List<WallpaperModel> wallpapers, context}) {
         return GridTile(
             child: Container(
           child: ClipRRect(
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(10),
             child: Image.network(
               wPapers.src!.portrait,
               fit: BoxFit.cover,
@@ -35,6 +34,35 @@ Widget imageList({required List<WallpaperModel> wallpapers, context}) {
           ),
         ));
       }).toList(),
+    ),
+  );
+}
+
+Widget searchTextField(TextEditingController controller, void func()) {
+  return Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 10),
+    child: Container(
+      padding: EdgeInsets.only(left: 10, right: 10),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        color: Colors.grey[200],
+      ),
+      child: TextField(
+        controller: controller,
+        onChanged: (val) {
+          val = controller.text;
+        },
+        decoration: InputDecoration(
+          border: InputBorder.none,
+          hintText: "search",
+          suffixIcon: IconButton(
+              onPressed: func,
+              icon: Icon(
+                Icons.search,
+                color: Colors.black,
+              )),
+        ),
+      ),
     ),
   );
 }

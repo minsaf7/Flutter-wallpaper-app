@@ -4,6 +4,7 @@ import 'package:futtergallery/Data/data.dart';
 import 'package:futtergallery/Models/CategoryModel.dart';
 import 'package:futtergallery/Models/WallpaperModel.dart';
 import 'package:futtergallery/Views/Category.dart';
+import 'package:futtergallery/Views/Seach.dart';
 import 'package:futtergallery/Widgets/Widgets.dart';
 import 'package:http/http.dart' as http;
 
@@ -17,7 +18,9 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   List<CategoryModel> categoryModel = [];
   List<WallpaperModel> wallmodel = [];
+  TextEditingController searchText = TextEditingController();
   bool isLoading = true;
+  bool searchTyped = false;
 
   // getTrendingImages() async {
   //   var response = await http.get(
@@ -40,8 +43,10 @@ class _HomeState extends State<Home> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    searchTyped = false;
     categoryModel = getCategory();
     getImages();
+
     // getTrending.getTrendingImages();
     // wallmodel = getTrending.wallpapers;
     // wallmodel =
@@ -72,15 +77,33 @@ class _HomeState extends State<Home> {
                     color: Colors.grey[200],
                   ),
                   child: TextField(
+                    controller: searchText,
+                    onChanged: (val) {
+                      setState(() {
+                        val = searchText.text;
+                        searchTyped = true;
+                      });
+                    },
                     decoration: InputDecoration(
-                      border: InputBorder.none,
                       hintText: "search",
-                      suffixIcon: IconButton(
-                          onPressed: () {},
-                          icon: Icon(
-                            Icons.search,
-                            color: Colors.black,
-                          )),
+                      border: InputBorder.none,
+                      suffixIcon: searchText.text.isNotEmpty
+                          ? IconButton(
+                              onPressed: () {
+                                print(searchText.text);
+
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (builder) => Search(
+                                              query: searchText.text,
+                                            )));
+                              },
+                              icon: Icon(
+                                Icons.search,
+                                color: Colors.black,
+                              ))
+                          : Container(),
                     ),
                   ),
                 ),
