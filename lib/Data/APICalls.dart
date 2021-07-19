@@ -9,7 +9,7 @@ class APICalls {
   List<WallpaperModel> wallpapers = [];
   getTrendingImages() async {
     var response = await http.get(
-        Uri.parse("https://api.pexels.com/v1/curated?per_page=15&page=1"),
+        Uri.parse("https://api.pexels.com/v1/curated?per_page=16&page=1"),
         headers: {"Authorization": apiKey});
     //print(response.body.toString());
 

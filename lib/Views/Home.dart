@@ -57,83 +57,71 @@ class _HomeState extends State<Home> {
         title: topBar(),
         elevation: 0.0,
       ),
-      body: Container(
-        child: Column(
-          children: [
-            //search textfield
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Container(
-                padding: EdgeInsets.only(left: 10, right: 10),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: Colors.grey[200],
-                ),
-                child: TextField(
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    hintText: "search",
-                    suffixIcon: IconButton(
-                        onPressed: () {},
-                        icon: Icon(
-                          Icons.search,
-                          color: Colors.black,
-                        )),
+      body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Container(
+          child: Column(
+            children: [
+              //search textfield
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Container(
+                  padding: EdgeInsets.only(left: 10, right: 10),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.grey[200],
+                  ),
+                  child: TextField(
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: "search",
+                      suffixIcon: IconButton(
+                          onPressed: () {},
+                          icon: Icon(
+                            Icons.search,
+                            color: Colors.black,
+                          )),
+                    ),
                   ),
                 ),
               ),
-            ),
-            SizedBox(height: 10),
-            //mady by label
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text("Developed by "),
-                Text(
-                  "Minsaf",
-                  style:
-                      TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
-            SizedBox(height: 10),
-            //categoty list
-            Container(
-              height: 70,
-              child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  shrinkWrap: true,
-                  // itemCount: categoryModel.length,
-                  itemCount: categoryModel.length,
-                  itemBuilder: (context, index) {
-                    // print(wallmodel[index].photographer);
-                    return CategoryTile(
-                        categoryTitle: categoryModel[index].categoryTitle,
-                        imageUrl: categoryModel[index].imageUrl);
-                  }),
-            ),
+              SizedBox(height: 10),
+              //mady by label
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text("Developed by "),
+                  Text(
+                    "Minsaf",
+                    style: TextStyle(
+                        color: Colors.red, fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+              SizedBox(height: 10),
+              //categoty list
+              Container(
+                height: 70,
+                child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    shrinkWrap: true,
+                    // itemCount: categoryModel.length,
+                    itemCount: categoryModel.length,
+                    itemBuilder: (context, index) {
+                      // print(wallmodel[index].photographer);
+                      return CategoryTile(
+                          categoryTitle: categoryModel[index].categoryTitle,
+                          imageUrl: categoryModel[index].imageUrl);
+                    }),
+              ),
 
-            //body
-            SizedBox(height: 20),
-            Text("data"),
-            Container(
-              // color: Colors.black,
-              height: 300,
-              child: ListView.builder(
-                  shrinkWrap: true,
-                  // itemCount: categoryModel.length,
-                  itemCount: wallmodel.length,
-                  itemBuilder: (context, index) {
-                    // print(wallmodel[index].photographer);
-                    return isLoading
-                        ? CircularProgressIndicator()
-                        : Container(
-                            child:
-                                Image.network(wallmodel[index].src!.original),
-                          );
-                  }),
-            ),
-          ],
+              //body
+              SizedBox(height: 10),
+
+              imageList(wallpapers: wallmodel, context: context),
+              SizedBox(height: 10),
+            ],
+          ),
         ),
       ),
     );
