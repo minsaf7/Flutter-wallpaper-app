@@ -43,4 +43,23 @@ class APICalls {
       return wallpapers;
     });
   }
+
+  //category
+  getCategoryImages(String query) async {
+    var response = await http.get(
+        Uri.parse(
+            "https://api.pexels.com/v1/search?&query={$query}&per_page=16"),
+        headers: {"Authorization": apiKey});
+    //print(response.body.toString());
+
+    Map<String, dynamic> jsonData = jsonDecode(response.body);
+
+    jsonData["photos"].forEach((element) {
+      WallpaperModel wallpaperModel = new WallpaperModel();
+      wallpaperModel = WallpaperModel.fromJson(element);
+      wallpapers.add(wallpaperModel);
+      //print(wallpapers);
+      return wallpapers;
+    });
+  }
 }
