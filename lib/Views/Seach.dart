@@ -43,6 +43,7 @@ class _SearchState extends State<Search> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    onScreensearch = false;
     getImages();
   }
 
@@ -67,7 +68,29 @@ class _SearchState extends State<Search> {
                 print(onScreensearch);
                 getImages();
               }),
-
+//search label
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Row(
+                  children: [
+                    Text(
+                      "showing resluts for: ",
+                      style: TextStyle(fontSize: 14, color: Colors.grey),
+                    ),
+                    onScreensearch
+                        ? Text(
+                            "\'${searchText.text}'",
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.bold),
+                          )
+                        : Text(
+                            "\'${widget.query}'",
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.bold),
+                          )
+                  ],
+                ),
+              ),
               //search body
               imageList(wallpapers: searchModel, context: context)
             ],
