@@ -1,5 +1,7 @@
 import 'package:futtergallery/Models/CategoryModel.dart';
 
+String apiKey = '563492ad6f9170000100000193dacab667d641728e5a3193aa222a89';
+
 List<CategoryModel> getCategory() {
   List<CategoryModel> categories = [];
 

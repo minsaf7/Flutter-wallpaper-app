@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:futtergallery/Data/APICalls.dart';
 import 'package:futtergallery/Data/data.dart';
 import 'package:futtergallery/Models/CategoryModel.dart';
+import 'package:futtergallery/Models/WallpaperModel.dart';
 import 'package:futtergallery/Views/Category.dart';
 import 'package:futtergallery/Widgets/Widgets.dart';
+import 'package:http/http.dart' as http;
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -13,13 +16,38 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   List<CategoryModel> categoryModel = [];
+  List<WallpaperModel> wallmodel = [];
+  bool isLoading = true;
+
+  // getTrendingImages() async {
+  //   var response = await http.get(
+  //       Uri.parse("https://api.pexels.com/v1/curated?per_page=15&page=1"),
+  //       headers: {"Authorization": apiKey});
+  //   print(response.body.toString());
+  // }
+
+  getImages() async {
+    APICalls getTrending = APICalls();
+    await getTrending.getTrendingImages();
+    wallmodel = getTrending.wallpapers;
+    print(wallmodel);
+    setState(() {
+      isLoading = false;
+    });
+  }
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     categoryModel = getCategory();
-    print(categoryModel);
+    getImages();
+    // getTrending.getTrendingImages();
+    // wallmodel = getTrending.wallpapers;
+    // wallmodel =
+
+    //print(categoryModel);
+    //getTrendingImages();
   }
 
   @override
@@ -75,11 +103,34 @@ class _HomeState extends State<Home> {
               child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   shrinkWrap: true,
+                  // itemCount: categoryModel.length,
                   itemCount: categoryModel.length,
                   itemBuilder: (context, index) {
+                    // print(wallmodel[index].photographer);
                     return CategoryTile(
                         categoryTitle: categoryModel[index].categoryTitle,
                         imageUrl: categoryModel[index].imageUrl);
+                  }),
+            ),
+
+            //body
+            SizedBox(height: 20),
+            Text("data"),
+            Container(
+              // color: Colors.black,
+              height: 300,
+              child: ListView.builder(
+                  shrinkWrap: true,
+                  // itemCount: categoryModel.length,
+                  itemCount: wallmodel.length,
+                  itemBuilder: (context, index) {
+                    // print(wallmodel[index].photographer);
+                    return isLoading
+                        ? CircularProgressIndicator()
+                        : Container(
+                            child:
+                                Image.network(wallmodel[index].src!.original),
+                          );
                   }),
             ),
           ],
