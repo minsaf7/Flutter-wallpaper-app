@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:futtergallery/Models/WallpaperModel.dart';
+import 'package:futtergallery/Views/ImageView.dart';
 
 Widget topBar() {
   return Row(
@@ -27,9 +28,19 @@ Widget imageList({required List<WallpaperModel> wallpapers, context}) {
             child: Container(
           child: ClipRRect(
             borderRadius: BorderRadius.circular(10),
-            child: Image.network(
-              wPapers.src!.portrait,
-              fit: BoxFit.cover,
+            child: GestureDetector(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (builder) => ImageView(
+                              url: wPapers.src!.original,
+                            )));
+              },
+              child: Image.network(
+                wPapers.src!.portrait,
+                fit: BoxFit.cover,
+              ),
             ),
           ),
         ));

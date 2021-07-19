@@ -4,6 +4,7 @@ import 'package:futtergallery/Data/data.dart';
 import 'package:futtergallery/Models/CategoryModel.dart';
 import 'package:futtergallery/Models/WallpaperModel.dart';
 import 'package:futtergallery/Views/Category.dart';
+import 'package:futtergallery/Views/ImageView.dart';
 import 'package:futtergallery/Views/Seach.dart';
 import 'package:futtergallery/Widgets/Widgets.dart';
 import 'package:http/http.dart' as http;

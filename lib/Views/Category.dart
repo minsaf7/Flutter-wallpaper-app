@@ -47,7 +47,7 @@ class _CategoryState extends State<Category> {
                 ? Container(
                     child: CircularProgressIndicator(),
                   )
-                : imageList(wallpapers: categoryModel),
+                : imageList(wallpapers: categoryModel, context: context),
           ],
         )),
       ),
