@@ -34,12 +34,15 @@ Widget imageList({required List<WallpaperModel> wallpapers, context}) {
                     context,
                     MaterialPageRoute(
                         builder: (builder) => ImageView(
-                              url: wPapers.src!.original,
+                              url: wPapers.src!.portrait,
                             )));
               },
-              child: Image.network(
-                wPapers.src!.portrait,
-                fit: BoxFit.cover,
+              child: Hero(
+                tag: wPapers.src!.portrait,
+                child: Image.network(
+                  wPapers.src!.portrait,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
           ),

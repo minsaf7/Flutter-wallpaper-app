@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:futtergallery/Views/Home.dart';
+import 'package:futtergallery/Views/SplashScreen.dart';
 
 void main() {
   runApp(MyApp());
@@ -12,7 +13,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(primaryColor: Colors.white),
-      home: Home(),
+     // home: Home(),
+     home: SplashScreen(),
     );
   }
 }
